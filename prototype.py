@@ -85,3 +85,23 @@ def main():
 
 if __name__ == "__main__":
     main()
+message_history = {}
+
+def log_message(sender, receiver, message):
+    if receiver not in message_history:
+        message_history[receiver] = []
+    message_history[receiver].append((sender, message))
+
+def show_message_history():
+    for receiver, messages in message_history.items():
+        print(f"Conversation with {receiver}:")
+        for sender, message in messages:
+            print(f"{sender}: {message}")
+
+def receive_messages(server_socket, server_port):
+    global receive_ip_online
+    while True:
+        client_socket, client_address = server_socket.accept()
+        message = client_socket.recv(1024).decode("utf-8")
+        log_message(client_address[0], get_local_ip(), message)  # Log received message
+        # Existing message handling code
