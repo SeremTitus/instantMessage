@@ -29,7 +29,6 @@ def is_online(server_ip, server_port):
     receive_ip_online = ""
     return True
 
-
 def receive_messages(server_socket,server_port):
     global receive_ip_online
     while True:
